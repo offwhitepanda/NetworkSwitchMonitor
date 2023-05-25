@@ -1,0 +1,92 @@
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+      setInterval(function() {
+        var row_id = "1"
+        function getWord(status){
+            switch(status){
+                case 0:
+                    return "good";
+                    break;
+                case 1:
+                    return "okay";
+                    break;
+                case 2:
+                    return "bad";
+                    break;
+                default:
+                    return "unknown";
+            }
+        }
+        $.ajax({
+          url: 'check_dev_status/?row_id=' + row_id,  // URL to your Django view for checking dev_status updates
+          method: 'GET',
+          success: function(response) {
+            $.each(response, function(index, row) {
+              var $devStatusElement = $('.dev-status[data-row-id="' + row_id + '"]');
+              if (row.dev_status !== $devStatusElement.html()) {
+                var switch_status = getWord(row.dev_status)
+                $devStatusElement.html('<span class="' + switch_status + '"></span>');  // Update the content of the <td> element
+              }
+            });
+          },
+          error: function(xhr, status, error) {
+            console.error(error);
+          }
+        });
+      }, 5000);  // Interval (in milliseconds) to check for updates (e.g., every 5 seconds)
+    });
+    </script>
+    
+    
+    
+
+<link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+
+<h1>Switch Info</h1>
+{% block content %}
+<div class="tableHolder">
+    <table>
+    <thead>
+        <tr>
+        <th>Dev Name</th>
+        <th>Status</th>
+        <th>CPU Percentage Used</th>
+        <th>Memory Percentage Used</th>
+        <th>Harddisk Percentage Used</th>
+        <th>Dev Manufacturer</th>
+        <th>Dev Model</th>
+        <th>Dev OS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row_id,row in information.items %}
+        <tr>
+            
+            <td>{{ row.dev_name }}</td>
+            <td class="dev-status" data-row-id="{{ row.id }}">
+                {% if row.dev_status == 0 %}
+                    <span class="good"></span>
+                {% elif row.dev_status == 1 %}
+                    <span class="okay"></span>
+                {% elif row.dev_status == 2 %}
+                    <span class="bad"></span>
+                {% else %}
+                    <span class="unknown"></span>
+                {% endif %}
+            </td>
+            <td>{{ row.cpu_percentage_used }}</td>
+            <td>{{ row.memory_percentage_used }}</td>
+            <td>{{ row.harddisk_percentage_used }}</td>
+            <td>{{ row.dev_manufacturer }}</td>
+            <td>{{ row.dev_model }}</td>
+            <td>{{ row.dev_os }}</td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

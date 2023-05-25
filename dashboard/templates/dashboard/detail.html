@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'dashboard/detail.css' %}">
+
+<h1>Switch Detail View</h1>
+{% block content %}
+<div class="tableHolder">
+    <table>
+        {% for row_name,row in information.items %}
+            <tr><th>{{ row_name }}</th><td>{{ row }}</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
