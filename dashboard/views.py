@@ -68,25 +68,35 @@ def switch_detail(request, dev_id):
 
 def check_dev_status(request):
     # Perform any necessary logic to retrieve the updated dev_status values for each row
-    updated_dev_status_list = []
+    updated_dev_status_list = {}
 
     # Get the row_id from the request parameters
     row_id = request.GET.get('row_id')
 
     # Get all of the status info objects
     status_info_objects = StatusInfo.objects.all()
+    performance_metrics_objects = PerformanceMetrics.objects.all()
 
     # Iterate over the status info objects and add them to the list
     for status_info_object in status_info_objects:
         # Check if the dev_id matches the row_id
         if str(status_info_object.dev_id.dev_id) == f"{row_id}":
             # Create a dictionary for the row and add dev_id and dev_status
-            row_data = {
-                'id': status_info_object.dev_id.dev_id,
-                'dev_status': status_info_object.dev_status
-            }
-            updated_dev_status_list.append(row_data)
-    
+                updated_dev_status_list.update({f'{row_id}' : {'id': status_info_object.dev_id.dev_id}})
+                updated_dev_status_list[f'{row_id}'].update({'dev_status': status_info_object.dev_status})
+            
+        
+
+    # Iterate over the status info objects and add them to the list
+    for performance_metrics_object in performance_metrics_objects:
+        # Check if the dev_id matches the row_id
+        if str(performance_metrics_object.dev_id.dev_id) == f"{row_id}":
+            # Create a dictionary for the row and add dev_id and dev_status
+            
+            updated_dev_status_list[f'{row_id}'].update({'dev_cpu': performance_metrics_object.cpu_percentage_used })
+            updated_dev_status_list[f'{row_id}'].update({'dev_mem': performance_metrics_object.memory_percentage_used })
+            updated_dev_status_list[f'{row_id}'].update({'dev_hd': performance_metrics_object.harddisk_percentage_used })
+            
     return JsonResponse(updated_dev_status_list, safe=False)
 
 
@@ -146,7 +156,7 @@ class index(generic.ListView):
         """
         Return the first 10 rows of the observation table
         """
-        return GeneralInfo.objects.all()[:5]
+        return GeneralInfo.objects.all()[:10]
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
@@ -154,8 +164,8 @@ class index(generic.ListView):
         data_set_1 = []
         data_set_2 = []
 
-        data_set_1 = PerformanceMetrics.objects.all()[:5]
-        data_set_2 = AdvancedInfo.objects.all()[:5]
+        data_set_1 = PerformanceMetrics.objects.all()[:10]
+        data_set_2 = AdvancedInfo.objects.all()[:10]
 
         context['data_set_1'] = data_set_1
         context['data_set_2'] = data_set_2
