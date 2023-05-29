@@ -3,7 +3,7 @@ function generateChart(data, data1){
 
     function noGo(message = ""){message ? console.log(message) : null;}
 
-    data = JSON.parse(data);
+    data = data ? JSON.parse(data): noGo("JSON Data 1");
     data1 = data1 ? JSON.parse(data1) : noGo("JSON Data 2");
 
     
@@ -24,9 +24,9 @@ function generateChart(data, data1){
 
     // Parse the time values
     var parseTime = d3.timeParse("%H:%M");
-    data.forEach(function (d) {
+    data ? data.forEach(function (d) {
         d.time = parseTime(d.dev_time);
-    });
+    }) : noGo() ;
     data1 ? data1.forEach(function (d1) {
         d1.time = parseTime(d1.dev_time);
     }) : noGo() ;
@@ -34,21 +34,21 @@ function generateChart(data, data1){
     // Set up the scales
     var xScale = d3
     .scaleTime()
-    .domain(d3.extent(data, function (d) { return d.time; }))
+    .domain(d3.extent(data ? data : data1, function (d) { return d.time; }))
     .range([0, width]);
 
     var yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data, function (d) { return d.dev_cpu; })])
+    .domain([0, d3.max(data ? data : data1, function (d) { return d.dev_cpu ? d.dev_cpu : d.dev_mem; })])
     .range([height, 0]);
 
     // Add the scatter plot points
     svg.selectAll("circle")
-    .data(data)
+    .data(data ? data : data1)
     .enter()
     .append("circle")
     .attr("cx", function (d) { return xScale(d.time); })
-    .attr("cy", function (d) { return yScale(d.dev_cpu); })
+    .attr("cy", function (d) { return yScale(d.dev_cpu ? d.dev_cpu : d.dev_mem); })
     .attr("r", 6)
     .style("fill", "steelblue")
     .on("mouseover", function (d, i) {
@@ -59,8 +59,8 @@ function generateChart(data, data1){
             "Time: " +
             d.time +
             "<br/>" +
-            "CPU: " +
-            d.dev_cpu
+            (d.dev_cpu ? "CPU: " : "Mem: ") +
+            (d.dev_cpu ? d.dev_cpu : d.dev_mem)
         )
         .style("position","absolute")
         .style("z-index","10")
@@ -73,17 +73,20 @@ function generateChart(data, data1){
     });
 
     // Add the line
-    var line = d3
-    .line()
-    .x(function (d) { return xScale(d.time); })
-    .y(function (d) { return yScale(d.dev_cpu); });
+    data ? (() => {
+        var line = d3
+        .line()
+        .x(function (d) { return xScale(d.time); })
+        .y(function (d) { return yScale(d.dev_cpu); });
 
-    svg.append("path")
-    .datum(data)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 2)
-    .attr("d", line);
+        svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    
+    })() : noGo("First Line");
 
     // Add the line for the second dataset
     data1 ? ( () => {
@@ -127,7 +130,7 @@ function generateChart(data, data1){
     .attr("x", 0 - (height / 2))
     .attr("y", -35)
     .attr("transform", "rotate(-90)")
-    .text("CPU Percentage");
+    .text("Percentage");
 
 
     // Add tooltip div
