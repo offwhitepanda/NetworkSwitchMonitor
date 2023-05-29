@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import datetime,date,time
+from django.utils.timezone import now
 
 class GeneralInfo(models.Model):
     """
@@ -64,5 +66,24 @@ class StatusInfo(models.Model):
         verbose_name = "Status Info"
         verbose_name_plural = "Status Infos"
 
+class CpuHistory(models.Model):
+    dev_id = models.ForeignKey(GeneralInfo, on_delete=models.CASCADE)
+    cpu_percentage_used = models.FloatField(max_length=5)
+    dev_date = models.DateField(default=date.today)
+    dev_time = models.TimeField(default=datetime.now)
+
+    class Meta:
+        verbose_name = "CPU History"
+        verbose_name_plural = "CPU History"
+
+class MemoryHistory(models.Model):
+    dev_id = models.ForeignKey(GeneralInfo, on_delete=models.CASCADE)
+    memory_percentage_used = models.FloatField(max_length=5)
+    dev_date = models.DateField(default=date.today)
+    dev_time = models.TimeField(default=datetime.now)
+
+    class Meta:
+        verbose_name = "Memory History"
+        verbose_name_plural = "Memory History"
     
 

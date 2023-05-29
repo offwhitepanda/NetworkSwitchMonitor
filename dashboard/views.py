@@ -3,10 +3,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import generic
 from django.core import serializers
+from datetime import datetime
 
 import json
 
-from .models import GeneralInfo, PerformanceMetrics, AdvancedInfo, StatusInfo
+from .models import GeneralInfo, PerformanceMetrics, AdvancedInfo, StatusInfo, CpuHistory, MemoryHistory
 
 from django.http import JsonResponse
 
@@ -25,6 +26,44 @@ def switch_detail(request, dev_id):
 
     information = {}
     headers = []
+    cpu_history = []
+    mem_history = []
+
+    try:
+        cpu_history_objects = CpuHistory.objects.filter(dev_id=dev_id).order_by('-dev_date', '-dev_time')[:10]
+
+        dev_time = [cpu_history_object.dev_time.strftime(r"%H:%M") for cpu_history_object in cpu_history_objects]
+        dev_date = [cpu_history_object.dev_date.isoformat() for cpu_history_object in cpu_history_objects]
+        dev_cpu = [cpu_history_object.cpu_percentage_used for cpu_history_object in cpu_history_objects]
+
+        # Combine the data into a list of objects
+        data = [{'dev_time': o1, 'dev_date': o2, 'dev_cpu': o3} for o1, o2, o3 in zip(dev_time,dev_date,dev_cpu)]
+
+        # Prepare the data for d3.js
+        data_json = json.dumps(data)
+
+        cpu_history.append(data_json)
+
+    except Exception as e:
+        print("Error creating CPU chart:\n " + str(e))
+
+    try:
+        mem_history_objects = MemoryHistory.objects.filter(dev_id=dev_id).order_by('-dev_date', '-dev_time')[:10]
+
+        dev_time = [mem_history_object.dev_time.strftime(r"%H:%M") for mem_history_object in mem_history_objects]
+        dev_date = [mem_history_object.dev_date.isoformat() for mem_history_object in mem_history_objects]
+        dev_mem = [mem_history_object.memory_percentage_used for mem_history_object in mem_history_objects]
+
+        # Combine the data into a list of objects
+        data = [{'dev_time': o1, 'dev_date': o2, 'dev_mem': o3} for o1, o2, o3 in zip(dev_time,dev_date,dev_mem)]
+
+        # Prepare the data for d3.js
+        data_json = json.dumps(data)
+
+        mem_history.append(data_json)
+
+    except Exception as e:
+        print("Error creating MEM chart:\n " + str(e))
 
     try:
         switch = GeneralInfo.objects.get(dev_id=dev_id)
@@ -63,6 +102,8 @@ def switch_detail(request, dev_id):
     context = {
         'information': information,
         'headers': headers,
+        'cpu_history': cpu_history,
+        'mem_history': mem_history,
     }
     return render(request, 'dashboard/detail.html', context)
 

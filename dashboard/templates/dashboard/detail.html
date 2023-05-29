@@ -1,15 +1,41 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'dashboard/detail.css' %}">
+<script src="{% static 'dashboard/cpu.js' %}"></script>
 
-<h1>Switch Detail View</h1>
-<button style="padding:5px; margin-bottom:5px;" onclick="window.location.href='/dashboard/'">Back</button>
-{% block content %}
-<div class="tableHolder">
-    <table>
-        {% for row_name,row in information.items %}
-            <tr><th>{{ row_name }}</th><td>{{ row }}</td></tr>
-        {% endfor %}
-    </table>
+<link rel="stylesheet" href="{% static 'dashboard/detail.css' %}">
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<div class="contentHolder">
+    <div class="row1">
+        <div class="titleHolder">
+            <h1>Switch Detail View</h1>
+        </div>
+    </div>
+    <div class="row2">
+        <div class="detailsHolder">
+            <button style="padding:5px; margin-bottom:5px;" onclick="window.location.href='/dashboard/'">Back</button>
+            {% block content %}
+            <div class="tableHolder">
+                <table>
+                    <tr><th>Property</th><th>Value</th></tr>
+                    {% for row_name,row in information.items %}
+                        <tr><th>{{ row_name }}</th><td>{{ row }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endblock %}
+        </div>
+        
+        <div id="chart">
+            {% if cpu_history %}
+            <script src="{% static 'dashboard/cpu.js' %}"></script>
+            <script>
+              var data = '{{ cpu_history|first|safe }}';
+              var data1 = '{{ mem_history|first|safe }}';
+              generateChart(data, data1);
+            </script>
+          {% endif %}
+        </div>
+    </div>
+    
 </div>
-{% endblock %}
