@@ -4,6 +4,7 @@ This project is a work in progress and is only the display portion of the code. 
 
 #### Preview of work in progress
 
-<img width="1277" alt="NetworkSwitchMonitor1" src="https://github.com/offwhitepanda/NetworkSwitchMonitor/assets/117415145/5af180cb-8c52-48ca-b82f-163e94034890">
+<img width="1277" alt="NetworkSwitchMonitor1" src="https://github.com/offwhitepanda/NetworkSwitchMonitor/assets/117415145/1d4eb68c-268a-4db8-8b68-3438e7f22dd2">
 
-<img width="647" alt="NetworkSwitchMonitor4" src="https://github.com/offwhitepanda/NetworkSwitchMonitor/assets/117415145/82982251-42b6-471e-872b-8bc31389724c">
+<img width="647" alt="NetworkSwitchMonitor4" src="https://github.com/offwhitepanda/NetworkSwitchMonitor/assets/117415145/c1f5d2dd-459d-430d-b895-2c50f87586f5">
+
