@@ -1,6 +1,6 @@
 # NetworkSwitchMonitor
 
-This project is a work in progress. Please star or contribute in some way if you like the effort.<br>
+This project is a work in progress and is only the display portion of the code. Please star or contribute in some way if you like the effort and would like to see more..<br>
 
 #### Preview of work in progress
 
