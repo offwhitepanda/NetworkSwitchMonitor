@@ -26,13 +26,25 @@
             {% endblock %}
         </div>
         
-        <div id="chart">
+        <div id="chart" class="chart">
+            <h1>CPU Performance</h1>
             {% if cpu_history %}
             <script src="{% static 'dashboard/cpu.js' %}"></script>
             <script>
               var data = '{{ cpu_history|first|safe }}';
               var data1 = '{{ mem_history|first|safe }}';
               generateChart(data, data1);
+            </script>
+          {% endif %}
+        </div>
+        <div id="chart2" class="chart">
+            <h1>Memory Performance</h1>
+            {% if cpu_history %}
+            <script src="{% static 'dashboard/cpu.js' %}"></script>
+            <script>
+              var data = '{{ cpu_history|first|safe }}';
+              var data1 = '{{ mem_history|first|safe }}';
+              generateChart2(data, data1);
             </script>
           {% endif %}
         </div>

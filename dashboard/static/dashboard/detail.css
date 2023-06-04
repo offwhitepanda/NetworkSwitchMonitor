@@ -1,106 +1,110 @@
 body {
-    background-color: #e4efff;
-  }
+  background-color: #e4efff;
+}
 
-  h1 {
-    color: white;
-  }
-  .contentHolder {
+h1 {
+  color: white;
+}
+.contentHolder {
 
-    background-color: #98bfe500;
-    padding-bottom: 10px;
-    border-top-right-radius: 10px;
-    overflow-x: hidden;
-  }
+  background-color: #98bfe500;
+  padding-bottom: 10px;
+  border-top-right-radius: 10px;
+  overflow-x: hidden;
+}
 
-  .row2{
-    display: grid;
-    grid-template-columns: 34% 66%;
-  }
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  text-align:center;
+  
+}
 
-  .titleHolder {
-    
-    background-color: #2696ff;
-    width:100%;
-    padding-top: 2px;
-    margin-bottom:5px;
-    padding-block-end: 5px;
-    padding-left: 5px;
-    max-width: 100%;
-    border-top-right-radius: 10px;
-  }
+.row2 h1 {
+  color:black !important;
+}
 
-  .detailsHolder {
-    grid-column: 1 / 2;
-    padding-left: 5px;
-    max-width: 33%;
-    width:33%;
-  }
+.titleHolder {
+  
+  background-color: #2696ff;
+  width:100%;
+  padding-top: 2px;
+  margin-bottom:5px;
+  padding-block-end: 5px;
+  padding-left: 5px;
+  max-width: 100%;
+  border-top-right-radius: 10px;
+}
 
-  #chart {
-    padding-top: 30px;
-    grid-column: 2 / 2;
-  }
+.detailsHolder {
+  padding-left: 5px;
+  max-width: 33%;
+  width:33%;
+}
+
+.chart {
+  padding-top: 30px;
+}
 
 table {
-    border-radius: 6px;
-    font-size: 14px;
-    border: 1px solid black;
-    max-width: 100%;
-    white-space: nowrap;
-    background-color: white;
-    text-align: left;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid black;
+  max-width: 100%;
+  white-space: nowrap;
+  background-color: white;
+  text-align: left;
 }
 
 table td, table th {
-    border: 1px solid black;
-    padding: 7px;
-    font-size: 14px;
+  border: 1px solid black;
+  padding: 7px;
+  font-size: 14px;
 }
 
 
 
 .good {
-    height: 25px;
-    width: 25px;
-    background-color: #02ca87;
-    border-radius: 50%;
-    display: inline-block;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    
+  height: 25px;
+  width: 25px;
+  background-color: #02ca87;
+  border-radius: 50%;
+  display: inline-block;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  
 }
 
 .okay {
-    height: 25px;
-    width: 25px;
-    background-color: #ffae00;
-    border-radius: 50%;
-    display: inline-block;
-    align-items: center;
-    align-self: center;
-    align-content: center;
+  height: 25px;
+  width: 25px;
+  background-color: #ffae00;
+  border-radius: 50%;
+  display: inline-block;
+  align-items: center;
+  align-self: center;
+  align-content: center;
 }
 
 .bad {
-    height: 25px;
-    width: 25px;
-    background-color: #ff0000;
-    border-radius: 50%;
-    display: inline-block;
-    align-items: center;
-    align-self: center;
-    align-content: center;
+  height: 25px;
+  width: 25px;
+  background-color: #ff0000;
+  border-radius: 50%;
+  display: inline-block;
+  align-items: center;
+  align-self: center;
+  align-content: center;
 }
 
 .unknown {
-    height: 25px;
-    width: 25px;
-    background-color: #3d3d3d;
-    border-radius: 50%;
-    display: inline-block;
-    align-items: center;
-    align-self: center;
-    align-content: center;
+  height: 25px;
+  width: 25px;
+  background-color: #3d3d3d;
+  border-radius: 50%;
+  display: inline-block;
+  align-items: center;
+  align-self: center;
+  align-content: center;
 }

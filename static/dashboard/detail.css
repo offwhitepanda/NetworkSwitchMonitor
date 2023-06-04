@@ -13,9 +13,10 @@ body {
     overflow-x: hidden;
   }
 
-  .row2{
+  .row2 {
+    grid-auto-columns: min-content;
     display: grid;
-    grid-template-columns: 34% 66%;
+    /* grid-template-columns: 34% 66%; */
   }
 
   .titleHolder {
