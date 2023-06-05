@@ -76,10 +76,19 @@ WSGI_APPLICATION = 'NetworkSwitchMonitor.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'zrcZ9X6h5qWPzkYJehKv',
+        'HOST': 'containers-us-west-8.railway.app',
+        'PORT': '7414',
+    },
+    'old':{
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db\master.db',
     }
 }
+
 
 
 # Password validation
