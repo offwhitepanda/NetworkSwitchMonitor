@@ -169,7 +169,7 @@ function generateChart2(data, data1){
 
     // Append the SVG object to the chart div
     var svg = d3
-    .select("#chart")
+    .select("#chart2")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
