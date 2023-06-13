@@ -32,7 +32,7 @@ def switch_detail(request, dev_id):
     try:
         cpu_history_objects = CpuHistory.objects.filter(dev_id=dev_id).order_by('-dev_date', '-dev_time')[:10]
 
-        dev_time = [cpu_history_object.dev_time.strftime(r"%H:%M") for cpu_history_object in cpu_history_objects]
+        dev_time = [cpu_history_object.dev_time.strftime(r"%H:%M:%S") for cpu_history_object in cpu_history_objects]
         dev_date = [cpu_history_object.dev_date.isoformat() for cpu_history_object in cpu_history_objects]
         dev_cpu = [cpu_history_object.cpu_percentage_used for cpu_history_object in cpu_history_objects]
 
@@ -50,7 +50,7 @@ def switch_detail(request, dev_id):
     try:
         mem_history_objects = MemoryHistory.objects.filter(dev_id=dev_id).order_by('-dev_date', '-dev_time')[:10]
 
-        dev_time = [mem_history_object.dev_time.strftime(r"%H:%M") for mem_history_object in mem_history_objects]
+        dev_time = [mem_history_object.dev_time.strftime(r"%H:%M:%S") for mem_history_object in mem_history_objects]
         dev_date = [mem_history_object.dev_date.isoformat() for mem_history_object in mem_history_objects]
         dev_mem = [mem_history_object.memory_percentage_used for mem_history_object in mem_history_objects]
 
