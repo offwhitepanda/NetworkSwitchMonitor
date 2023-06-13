@@ -13,9 +13,15 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(os.path.join(BASE_DIR, ".env"))
+CURRENT_DIR = os.getcwd()
+LOCAL_PATH = os.path.abspath(os.path.join(CURRENT_DIR, "../env/NSM.env"))
+print(str(LOCAL_PATH))
+if os.path.exists(LOCAL_PATH):
+    load_dotenv(LOCAL_PATH)
+else:
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 print(os.getenv("PGDATABASE"))
 print(os.getenv("PGUSER"))
