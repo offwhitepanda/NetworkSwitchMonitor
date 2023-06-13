@@ -14,8 +14,9 @@ Back-End Highlights:  Model class structure organized logically providing relata
 
 #### Preview of work in progress
 
-<img width="1277" alt="NetworkSwitchMonitor1" src="https://github.com/offwhitepanda/NetworkSwitchMonitor/assets/117415145/1d4eb68c-268a-4db8-8b68-3438e7f22dd2">
+<img width="736" alt="NetworkSwitchMonitor1" src="https://github.com/richard-hurley/NetworkSwitchMonitor/assets/117415145/9fd435df-dd51-4a5f-8ea8-0174d6e41f90">
+
+<img width="732" alt="NetworkSwitchMonitor3" src="https://github.com/richard-hurley/NetworkSwitchMonitor/assets/117415145/57be1a2f-3f24-43c5-8a70-14e684e87277">
 
 
-<img width="1274" alt="NetworkSwitchMonitor3" src="https://github.com/richard-hurley/NetworkSwitchMonitor/assets/117415145/984b1a6a-35dc-45c0-9a6e-d72b87b9b1f7">
 
